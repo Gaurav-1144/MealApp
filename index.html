@@ -6,6 +6,13 @@
         <title>Meal Application</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="index.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        >
         <script src="index.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -16,20 +23,42 @@
                     <h2>Meal Application</h2>
                     <div class="card">
                         <div class="card-body">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Seaching the meal here" id="mealname">
-                                <button class="btn btn-success" onclick="searchmeal()" type="button">Go</button>
+                            <div class="input-group rounded">
+                                <input
+                                    type="search"
+                                    class="form-control rounded"
+                                    placeholder="Search"
+                                    aria-label="Search"
+                                    aria-describedby="search-addon"
+                                    id="mealname"
+                                    value="Arrabiata"
+                                >
+                                <span class="input-group-text border-0" id="search-addon" onclick="searchmeal()">
+                                    <i class="fas fa-search"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mealdetail">
-                <h2>Meals Details</h2>
+            <div class="row mealdetail display-none" id="mealdetail">
+                <h2>Meals Search Result</h2>
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group mb-3">
-                           
+                        <div class="input-group mb-3 table-responsive">
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>MealName</th>
+                                        <th>MealImage</th>
+                                        <th>MealArea</th>
+                                        <th>MealCategory</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

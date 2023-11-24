@@ -6,7 +6,19 @@ body{
     text-align: center;
 }
 
+.search h2 {
+    font-family: Georgia;  
+}
+
+.card{
+    margin:20px;
+}
+
 .mealdetail h2{
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: center;
+    font-family: Georgia;
+}
+.display-none{
+    display: none;
 }
