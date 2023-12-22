@@ -22,3 +22,9 @@ body{
 .display-none{
     display: none;
 }
+
+.favlist h2 {
+    margin-top: 50px;
+    text-align: center;
+    font-family: Georgia;
+}

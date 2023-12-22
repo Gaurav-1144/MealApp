@@ -17,31 +17,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container search">
             <div class="row">
-                <div class="container search">
-                    <h2>Meal Application</h2>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="input-group rounded">
-                                <input
-                                    type="search"
-                                    class="form-control rounded"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    aria-describedby="search-addon"
-                                    id="mealname"
-                                >
-                                <span class="input-group-text border-0" id="search-addon" onclick="searchmeal()">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mealdetail display-none" id="mealdetail">
-                <h2>Meals Search Result</h2>
+                <h2>Meal Detail View</h2>
                 <div class="card">
                     <div class="card-body">
                         <div class="input-group mb-3 table-responsive">
@@ -50,7 +28,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>MealName</th>
-                                        <th>Action</th>
+                                        <th>MealImage</th>
+                                        <th>Instructions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody"></tbody>
@@ -60,5 +39,32 @@
                 </div>
             </div>
         </div>
+        <script>
+            let row ='';
+            let tabtbody = document.getElementById("tbody");
+            tabtbody.innerHTML = '';
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const mealid = urlParams.get('id')
+ let fetchRes = fetch( 
+    "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+ mealid + ""); 
+    // fetchRes is the promise to resolve 
+    // it by using.then() method 
+    fetchRes.then(res => 
+        res.json()).then(d => {
+            d.meals.forEach(function1);
+    function function1(result, index) {
+      row = `
+         <tr>
+           <td>${index+1}</td>
+            <td><a onclick="viewDetails(${result.idMeal})">${result.strMeal}</a></td>
+            <td><img src="${result.strMealThumb}" width="100px"/></td>
+            <td>${result.strInstructions}</td>
+          </tr>
+            `;
+      tabtbody.innerHTML+=row;
+    } 
+        }) 
+        </script>
     </body>
 </html>

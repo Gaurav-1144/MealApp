@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Fav List</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row favlist" id="favlist">
+                <h2>List of all the favourite meals</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="input-group mb-3 table-responsive">
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>MealName</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        // take reference of tbody
+        let tabtbody = document.getElementById("tbody");
+        tabtbody.innerHTML = '';
+        // Convert to string to object
+        const ids = JSON.parse(localStorage.getItem('mealIDs'));
+        // check the object length is greater then 0 or not
+        if(Object.keys(ids).length > 0) {        
+        let row ='';
+        let text = ids.toString();
+        let arrValue = [];
+        arrValue = text.split(",");
+        arrValue.forEach(function1);
+        function function1(result, index) {
+            let fetchRes = fetch( 
+    "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+ result + ""); 
+    // fetchRes is the promise to resolve 
+    // it by using.then() method 
+    fetchRes.then(res => 
+        res.json()).then(d => {
+            d.meals.forEach(function2);
+    function function2(result, index) {
+      row = `
+         <tr>
+           <td>${result.idMeal}</td>
+            <td><a onclick="viewDetails(${result.idMeal})">${result.strMeal}</a></td>
+            <td><button class="btn btn-danger" onclick="removetofavlist(${result.idMeal})"> <i class="fa fa-heart" aria-hidden="true"></i>
+            Remove from Favorites</button></td>
+          </tr>
+            `;
+      // bind the row in the table tbody      
+      tabtbody.innerHTML+=row;
+    } 
+        }) 
+        }
+    } else {
+        // if record is not available then show the msg
+        row = `
+         <tr>
+           <td colspan="3">No Record Found</td>
+          </tr>
+            `;
+      tabtbody.innerHTML+=row;
+    }
+        </script>
+    </body>
+</html>

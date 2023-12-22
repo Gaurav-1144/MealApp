@@ -1,3 +1,6 @@
+/**
+ * Search meal functionilty
+ */
 async function searchmeal() {
   // define the row variable as empty
   let row ='';
@@ -31,15 +34,65 @@ async function searchmeal() {
       row = `
          <tr>
            <td>${index+1}</td>
-            <td>${result.strMeal}</td>
-            <td><img src="${result.strMealThumb}" width="100px"/></td>
-            <td>${result.strArea}</td>
-            <td>${result.strCategory}</td>
-            <td><button class="btn btn-danger" > <i class="fa fa-heart" aria-hidden="true"></i>
+            <td><a href='#' onclick="viewDetails(${result.idMeal})">${result.strMeal}</a></td>
+            <td><button class="btn btn-danger" onclick="addtofavlist(${result.idMeal})"> <i class="fa fa-heart" aria-hidden="true"></i>
             Add to Favorites</button></td>
           </tr>
             `;
       tabtbody.innerHTML+=row;
     }
   }
+}
+
+/**
+ * Function to meal to fav list
+ * @param int mealid 
+ */
+function addtofavlist(mealid){
+    const data = [];
+    data.push({ mealid });
+  
+    // Get the existing meal IDs from localStorage
+    let mealIDs = JSON.parse(localStorage.getItem("mealIDs")) || [];
+  
+    // Check if the meal ID already exists in the list
+    if (mealIDs.includes(mealid)) {
+      alert("Meal already in your fav list");
+      location.reload();
+    } else {
+      // Add the meal ID to the list
+      mealIDs.push(mealid);
+  
+      // Save the updated meal IDs to localStorage
+      localStorage.setItem("mealIDs", JSON.stringify(mealIDs));
+  
+      alert("Meal Successfully added in fav list");
+      location.reload();
+    }
+
+}
+
+/**
+ * Remove to Fav list
+ * @param int mealid 
+ */
+function removetofavlist(mealid){
+  let mealIDs = JSON.parse(localStorage.getItem("mealIDs")) || [];
+  if (mealIDs.includes(mealid)) {
+    mealIDs.pop(mealid);
+    alert("Meal Id Remove");
+    localStorage.setItem("mealIDs", JSON.stringify(mealIDs));
+     location.reload();
+  }
+}
+
+/**
+ * Showing is details of meals behalf of meal id
+ * @param int mealid 
+ */
+async function viewDetails(mealid){
+  let url = '';
+  var base_url = window.location.origin;
+  url = base_url+'/mealdetailview.html?id='+ mealid +'';
+  location.href = url;
 }
