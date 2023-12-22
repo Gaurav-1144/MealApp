@@ -80,7 +80,7 @@ function removetofavlist(mealid){
   let mealIDs = JSON.parse(localStorage.getItem("mealIDs")) || [];
   if (mealIDs.includes(mealid)) {
     mealIDs.pop(mealid);
-    alert("Meal Id Remove");
+    alert("Meal Remove from the Fav List");
     localStorage.setItem("mealIDs", JSON.stringify(mealIDs));
      location.reload();
   }
