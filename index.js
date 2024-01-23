@@ -93,6 +93,6 @@ function removetofavlist(mealid){
 async function viewDetails(mealid){
   let url = '';
   var base_url = window.location.origin;
-  url = base_url+'/mealdetailview.html?id='+ mealid +'';
+  url = base_url+'/MealApp/mealdetailview.html?id='+ mealid +'';
   location.href = url;
 }
